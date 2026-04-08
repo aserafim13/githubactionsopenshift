@@ -1,10 +1,11 @@
 name: Test OpenShift Runner
 
-on: [push]
+on:
+  workflow_dispatch:
 
 jobs:
   test:
     runs-on: self-hosted
     steps:
       - name: Testando runner
-        run: echo "Funcionando no OpenShift 🚀"
+        run: echo "Rodando manualmente 🚀"
