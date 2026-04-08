@@ -21,7 +21,7 @@ jobs:
 
       - name: Deploy nginx
         run: |
-          ./oc apply -f k8s/nginx-deployment.yaml
+          ./oc apply -f k8s/deploy.yaml
 
       - name: Verificar Pods
         run: |
