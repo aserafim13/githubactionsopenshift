@@ -1,0 +1,10 @@
+name: Test OpenShift Runner
+
+on: [push]
+
+jobs:
+  test:
+    runs-on: self-hosted
+    steps:
+      - name: Testando runner
+        run: echo "Funcionando no OpenShift 🚀"
