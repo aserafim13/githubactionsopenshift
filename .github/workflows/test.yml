@@ -8,6 +8,14 @@ jobs:
     runs-on: self-hosted
 
     steps:
+
+      - name: Instalar oc
+        run: |
+          curl -LO https://mirror.openshift.com/pub/openshift-v4/clients/oc/latest/linux/oc.tar.gz
+          tar -xvf oc.tar.gz
+          chmod +x oc
+          mv oc /usr/local/bin/
+    
       - name: Criar Pod nginx
         run: |
           oc project openshift-operators
