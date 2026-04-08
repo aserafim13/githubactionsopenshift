@@ -19,12 +19,9 @@ jobs:
           ./oc whoami
           ./oc project openshift-operators
 
-      - name: Criar Pod nginx
+      - name: Deploy nginx
         run: |
-          ./oc run nginx-test \
-            --image=nginx \
-            --restart=Never \
-            --port=80 || true
+          ./oc apply -f k8s/nginx-deployment.yaml
 
       - name: Verificar Pods
         run: |
