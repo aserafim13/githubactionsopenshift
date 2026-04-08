@@ -1,4 +1,4 @@
-name: Criar Pod Nginx
+name: Deploy Nginx no OpenShift
 
 on:
   workflow_dispatch:
@@ -8,17 +8,28 @@ jobs:
     runs-on: self-hosted
 
     steps:
-
-      - name: Instalar oc
+      - name: Baixar e preparar oc
         run: |
           curl -LO https://mirror.openshift.com/pub/openshift-v4/clients/oc/latest/linux/oc.tar.gz
           tar -xvf oc.tar.gz
           chmod +x oc
-    
+
+      - name: Validar acesso ao cluster
+        run: |
+          ./oc whoami
+          ./oc project openshift-operators
+
       - name: Criar Pod nginx
         run: |
-          oc project openshift-operators
-          oc run nginx-test --image=nginx --restart=Never --port=80
+          ./oc run nginx-test \
+            --image=nginx \
+            --restart=Never \
+            --port=80 || true
 
-      - name: Verificar Pod
-        run: oc get pods
+      - name: Verificar Pods
+        run: |
+          ./oc get pods -n openshift-operators
+
+      - name: Descrever Pod nginx
+        run: |
+          ./oc describe pod nginx-test -n openshift-operators || true
