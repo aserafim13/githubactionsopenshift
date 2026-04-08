@@ -1,11 +1,17 @@
-name: Test OpenShift Runner
+name: Criar Pod Nginx
 
 on:
   workflow_dispatch:
 
 jobs:
-  test:
+  deploy:
     runs-on: self-hosted
+
     steps:
-      - name: Testando runner
-        run: echo "Rodando manualmente 🚀"
+      - name: Criar Pod nginx
+        run: |
+          oc project openshift-operators
+          oc run nginx-test --image=nginx --restart=Never --port=80
+
+      - name: Verificar Pod
+        run: oc get pods
